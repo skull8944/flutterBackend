@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const blogRoutes = require('./routes/blogRoutes');
+const covidRoutes = require('./routes/covidRoutes');
 const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./middlewares/authMiddleware');
 
@@ -23,3 +24,4 @@ mongoose.connect('mongodb://localhost:27017/flutter', {
 app.get('*', checkUser);
 app.use(authRoutes);
 app.use(blogRoutes);
+app.use(covidRoutes);
