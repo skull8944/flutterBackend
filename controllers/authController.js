@@ -1,5 +1,4 @@
 const User = require("../models/User");
-const jwt = require("jsonwebtoken");
 
 //handel errors
 function handelErrors(err){
@@ -30,10 +29,6 @@ function handelErrors(err){
 };
 
 
-function createToken(id){
-  return jwt.sign({ id }, 'secret');
-}
-
 module.exports.signup_get = (req, res) => {
   res.send('signup');
 };
@@ -58,8 +53,7 @@ module.exports.login_post = async (req, res) => {
   const { email, password } = req.body;
   try{
     const user = await User.login(email, password);
-    const token = createToken(user._id);
-    res.status(200).json({ user: user._id, name: user.name }); 
+    res.status(200).json({ user: user._id, name: user.name, email: user.email }); 
   }catch(err){
     const errors = handelErrors(err);
     res.status(404).json({ errors });
