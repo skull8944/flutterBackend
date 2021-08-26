@@ -11,6 +11,7 @@ const app = express();
 
 app.use(express.static('public'));
 app.use(express.json());
+app.use("/headshots", express.static("headshots"));
 
 function runSchedule () {
   schedule.scheduleJob('0 10 14 * * *', function () {

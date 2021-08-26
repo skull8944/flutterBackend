@@ -59,3 +59,17 @@ module.exports.login_post = async (req, res) => {
     res.status(404).json({ errors });
   }
 };
+
+module.exports.user_get = async (req, res) => {
+  const _id = req.params.token;
+  try {
+    const user = await User.findById(_id);
+    if(user) {
+      res.status(200).json({ token: user._id, name: user.name, email: user.email });
+    } else {
+      res.status(404).send("Can't find the user!");
+    }
+  } catch(err) {
+    res.status(404).send('Something went wrong!');
+  }
+}

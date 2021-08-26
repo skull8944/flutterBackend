@@ -14,7 +14,7 @@ module.exports.getCovidInfo = async () => {
   let $ = await cheerio.load(body);
 
   var now = new Date();
-  const date = month[now.getMonth()] + '-' + now.getDate().toString();
+  const date = now.getFullYear().toString() + '/' + (now.getMonth() + 1).toString() + '/' + now.getDate().toString();
 
   var totalConfirmed, localConfirmed, newTotalConfirmed, newLocalConfirmed, totalDeath, newDeath, injection , newInjection;
   
