@@ -3,7 +3,7 @@ const User = require("../models/User");
 //handel errors
 function handelErrors(err){
   console.log(err.message, err.code);
-  let errors = { email: '', password: '' } 
+  let errors = { email: '', password: '', name: '' } 
 
   if(err.message === 'incorrect email'){
     errors.email = '此email未被註冊過';
@@ -11,6 +11,10 @@ function handelErrors(err){
 
   if(err.message === 'incorrect password'){
     errors.password = '密碼不正確';
+  }
+
+  if(err.message === 'Repeat name'){
+    errors.name = '該名字已被註冊了';
   }
 
   //重複錯誤

@@ -12,9 +12,10 @@ const app = express();
 app.use(express.static('public'));
 app.use(express.json());
 app.use("/headshots", express.static("headshots"));
+app.use("/blogPhotos", express.static("blogPhoto"));
 
 function runSchedule () {
-  schedule.scheduleJob('0 10 14 * * *', function () {
+  schedule.scheduleJob('0 14 14 * * *', function () {
     covidController.getCovidInfo();
   });
 }

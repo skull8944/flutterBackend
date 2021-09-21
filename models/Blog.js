@@ -1,30 +1,31 @@
 const mongoose = require('mongoose');
 
 const blogSchema = new mongoose.Schema({
-  userToken: {
-    type: String,
-    required: true,
-  },
   userName: {
     type: String,
     required: true,
   },
   images: {
-    data: Buffer,
-    contentType: String,
+    type: Array,
+    required: true
   },
-  content: {    
+  distance: {
     type: String,
-    required: [true, '請輸入貼文內容'],
+    required: true
   },
-  updatedTime: {
+  time: {
     type: String,
-    required: true,
+    required: true
+  },
+  collect: {
+    type: String,
+    required: true
   }
+}, {
+  timestamps: { createdAt: 'created_at' }
 });
 
 blogSchema.post('save', async function(doc, next){
-  console.log(log);
   next();
 });
 

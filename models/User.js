@@ -13,13 +13,12 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, '請輸入密碼'],
-    unique: true,
     minLength: [6, '請輸入長度大於6的密碼']
   },
   name: {
     type: String,
     required: [true, '請輸入名字'],
-    unique: false,
+    unique: true,
     maxLength: [8, '請輸入長度小於6的名字']
   },
 });
@@ -32,9 +31,14 @@ userSchema.post('save', function(doc, next) {
 
 //fire a function before doc saved to db
 userSchema.pre('save', async function(next) {
-  const salt = await bcrypt.genSalt();
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
+  const user = await User.findOne({ name: this.name });
+  if(user) {
+    throw Error('Repeat name');
+  } else {
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  }  
 })
 
 //static method to login users
