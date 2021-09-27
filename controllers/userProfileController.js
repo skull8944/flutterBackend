@@ -2,8 +2,8 @@ const UserProfile = require("../models/UserProfile");
 
 module.exports.userProfile_get = async (req, res) => {
   try {
-    var userId = req.params.token;
-    const userProfile = await UserProfile.findOne({userId: userId});
+    var userName = req.params.userName;
+    const userProfile = await UserProfile.findOne({userName});
     if(userProfile) {
       res.status(200).json({ 
         sex: userProfile.sex, 
@@ -23,12 +23,12 @@ module.exports.userProfile_get = async (req, res) => {
 };
 
 module.exports.userProfile_post = async (req, res) => {
-  var userId = req.params.token;
-  console.log(userId);
+  var userName = req.params.userName;
+  console.log(userName);
   const { sex, height, weight, birthdate } = req.body;
   try{
     const userProfile = await UserProfile.create({
-      userId, sex,  height, weight, birthdate, headshot: ''
+      userName, sex,  height, weight, birthdate, headshot: ''
     });
     res.status(201).json({ 
       sex: userProfile.sex, 
@@ -44,7 +44,7 @@ module.exports.userProfile_post = async (req, res) => {
 module.exports.userProile_addimg = async (req, res) => {
   try {
     UserProfile.findOneAndUpdate(
-      { userId: req.params.token },
+      { userName: req.params.userName },
       {
         $set: {
           headshot: req.file.path,
@@ -70,7 +70,7 @@ module.exports.height_edit = async (req, res) => {
   try {
     console.log(req.body.height);
     UserProfile.findOneAndUpdate(
-      { userId: req.params.token },
+      { userName: req.params.userName },
       {
         $set: {
           height: req.body.height,
@@ -97,7 +97,7 @@ module.exports.height_edit = async (req, res) => {
 module.exports.weight_edit = async (req, res) => {
   try {
     UserProfile.findOneAndUpdate(
-      { userId: req.params.token },
+      { userName: req.params.userName },
       {
         $set: {
           weight: req.body.weight,
@@ -122,7 +122,7 @@ module.exports.weight_edit = async (req, res) => {
 module.exports.sex_edit = async (req, res) => {
   try {
     UserProfile.findOneAndUpdate(
-      { userId: req.params.token },
+      { userName: req.params.userName },
       {
         $set: {
           sex: req.body.sex,
@@ -147,7 +147,7 @@ module.exports.sex_edit = async (req, res) => {
 module.exports.birthdate_edit = async (req, res) => {
   try {
     UserProfile.findOneAndUpdate(
-      { userId: req.params.token },
+      { userName: req.params.userName },
       {
         $set: {
           birthdate: req.body.birthdate,

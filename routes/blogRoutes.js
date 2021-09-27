@@ -22,6 +22,7 @@ const upload = multer({
 
 const router = Router();
 
+router.get('/myblog/:userName', blogController.myblog_get)
 router.get('/blog/:userName', blogController.blog_get);
 router.post('/blog/:userName', blogController.blog_post);
 router.patch('/blog/:postID', upload.array('imgs', 6), blogController.blog_patch);

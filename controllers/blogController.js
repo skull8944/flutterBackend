@@ -55,3 +55,16 @@ module.exports.blog_patch = async (req, res) => {
     console.log(err);
   }
 };
+
+module.exports.myblog_get = async (req, res) => {
+  const userName = req.params.userName;
+  console.log(userName);
+  try {
+    const blog = await Blog.find({ userName });
+    if(blog) {
+      res.status(200).json(blog);
+    }
+  } catch(err) {
+    console.log(err)
+  }
+};

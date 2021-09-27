@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
     cb(null, "./headshots");
   },
   filename: (req, file, cb) => {
-    cb(null, req.params.token + ".jpg");
+    cb(null, file.originalname + ".jpg");
   },
 });
 
@@ -20,12 +20,12 @@ const upload = multer({
 
 const router = Router();
 
-router.get('/user_profile/:token', userProfileController.userProfile_get);
-router.post('/user_profile/:token', userProfileController.userProfile_post);
-router.patch('/user_profile/addimg/:token', upload.single('img'), userProfileController.userProile_addimg);
-router.post('/user_profile/height_edit/:token', userProfileController.height_edit);
-router.post('/user_profile/weight_edit/:token', userProfileController.weight_edit);
-router.post('/user_profile/sex_edit/:token', userProfileController.sex_edit);
-router.post('/user_profile/birthdate_edit/:token', userProfileController.birthdate_edit);
+router.get('/user_profile/:userName', userProfileController.userProfile_get);
+router.post('/user_profile/:userName', userProfileController.userProfile_post);
+router.patch('/user_profile/addimg/:userName', upload.single('img'), userProfileController.userProile_addimg);
+router.post('/user_profile/height_edit/:userName', userProfileController.height_edit);
+router.post('/user_profile/weight_edit/:userName', userProfileController.weight_edit);
+router.post('/user_profile/sex_edit/:userName', userProfileController.sex_edit);
+router.post('/user_profile/birthdate_edit/:userName', userProfileController.birthdate_edit);
 
 module.exports = router;

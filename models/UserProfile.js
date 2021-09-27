@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const userProfileSchema = new mongoose.Schema({
-  userId: {
+  userName: {
     type: String,
     required: true
   },
@@ -27,7 +27,7 @@ const userProfileSchema = new mongoose.Schema({
 });
 
 userProfileSchema.post('save', function(doc, next) {
-  console.log('user profile was updeted', doc);
+  console.log('user profile was updated', doc);
   next();
 });
 

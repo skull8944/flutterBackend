@@ -12,7 +12,7 @@ const app = express();
 app.use(express.static('public'));
 app.use(express.json());
 app.use("/headshots", express.static("headshots"));
-app.use("/blogPhotos", express.static("blogPhoto"));
+app.use("/blogPhotos", express.static("blogPhotos"));
 
 function runSchedule () {
   schedule.scheduleJob('0 14 14 * * *', function () {
