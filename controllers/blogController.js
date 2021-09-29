@@ -68,3 +68,14 @@ module.exports.myblog_get = async (req, res) => {
     console.log(err)
   }
 };
+
+module.exports.myblog_delete = async(req, res) => {
+  const postID = req.params.postID
+  try {
+    const blog = await Blog.deleteOne({ _id: postID });
+    console.log(blog);
+    res.status(201).send('success');
+  } catch(err) {
+    res.status(404).send('fail');
+  }
+}
