@@ -6,6 +6,7 @@ module.exports.userProfile_get = async (req, res) => {
     const userProfile = await UserProfile.findOne({userName});
     if(userProfile) {
       res.status(200).json({ 
+        userName: userProfile.userName,
         sex: userProfile.sex, 
         height: userProfile.height, 
         weight: userProfile.weight,  
@@ -28,7 +29,7 @@ module.exports.userProfile_post = async (req, res) => {
   const { sex, height, weight, birthdate } = req.body;
   try{
     const userProfile = await UserProfile.create({
-      userName, sex,  height, weight, birthdate, headshot: ''
+      userName, sex,  height, weight, birthdate, headshot: 'headshots/iltbb.png'
     });
     res.status(201).json({ 
       sex: userProfile.sex, 
@@ -166,5 +167,21 @@ module.exports.birthdate_edit = async (req, res) => {
     );
   } catch(err) {
     console.log(err);
+  }
+}
+
+module.exports.suggestions_get = async(req, res) => {
+  console.log(req.params.query);
+  const userProfile = await UserProfile.find({
+    userName: { $regex: req.params.query, $options: 'i' }
+  })
+
+  if(userProfile) {
+    console.log(userProfile[0].userName);
+    res.status(201).json({
+      userProfile
+    })
+  } else {
+    res.status(404).send('no users found');
   }
 }

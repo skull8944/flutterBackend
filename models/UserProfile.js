@@ -31,6 +31,15 @@ userProfileSchema.post('save', function(doc, next) {
   next();
 });
 
+userProfileSchema.pre('save', async function(next) {
+  const userProfile = await UserProfile.findOne({ name: this.name });
+  if(userProfile) {
+    throw Error('Repeat UserProfile');
+  } else {
+    next();
+  }  
+});
+
 const UserProfile = mongoose.model('userProfile', userProfileSchema);
 
 module.exports = UserProfile;

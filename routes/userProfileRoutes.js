@@ -27,5 +27,6 @@ router.post('/user_profile/height_edit/:userName', userProfileController.height_
 router.post('/user_profile/weight_edit/:userName', userProfileController.weight_edit);
 router.post('/user_profile/sex_edit/:userName', userProfileController.sex_edit);
 router.post('/user_profile/birthdate_edit/:userName', userProfileController.birthdate_edit);
+router.get('/user_profile/suggestions/:query', userProfileController.suggestions_get);
 
 module.exports = router;
