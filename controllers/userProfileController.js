@@ -38,6 +38,7 @@ module.exports.userProfile_post = async (req, res) => {
       birthdate: userProfile.birthdate
     });
   }catch(err){
+    console.log(err.message);
     res.status(404).send(err);
   }
 };
@@ -171,7 +172,6 @@ module.exports.birthdate_edit = async (req, res) => {
 }
 
 module.exports.suggestions_get = async(req, res) => {
-  console.log(req.params.query);
   const userProfile = await UserProfile.find({
     userName: { $regex: req.params.query, $options: 'i' }
   })

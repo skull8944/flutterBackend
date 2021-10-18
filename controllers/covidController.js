@@ -50,9 +50,7 @@ module.exports.getCovidInfo = async () => {
 }
 
 module.exports.covid_get = async (req, res) => {
-  const data = await CovidInfo.findOne({}, {}, { sort: { 'created_at' : -1 } }, function(err, post) {
-    console.log( post );
-  });
+  const data = await CovidInfo.findOne({}, {}, { sort: { 'created_at' : -1 } });
 
   if(data) {
     res.status(200).json({ 

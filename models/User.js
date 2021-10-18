@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
+const Schema = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -21,6 +22,8 @@ const userSchema = new mongoose.Schema({
     unique: true,
     maxLength: [8, '請輸入長度小於6的名字']
   },
+  friends: [{ type: Schema.Types.ObjectId, ref: 'Friends'}],
+  profile: [{ type: Schema.Types.ObjectId, ref: 'UserProfile' }]
 });
 
 //fire a function after doc saved to db

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const userProfileSchema = new mongoose.Schema({
+  User: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   userName: {
     type: String,
     required: true
@@ -32,7 +33,7 @@ userProfileSchema.post('save', function(doc, next) {
 });
 
 userProfileSchema.pre('save', async function(next) {
-  const userProfile = await UserProfile.findOne({ name: this.name });
+  const userProfile = await UserProfile.findOne({ userName: this.name });
   if(userProfile) {
     throw Error('Repeat UserProfile');
   } else {
