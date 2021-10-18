@@ -27,5 +27,7 @@ router.delete('/myblog/:postID', blogController.myblog_delete);
 router.get('/blog/:userName', blogController.blog_get);
 router.post('/blog/:userName', blogController.blog_post);
 router.patch('/blog/:postID', upload.array('imgs', 6), blogController.blog_patch);
+router.post('/blog/collect/:postID', blogController.collect);
+router.get('/blog/favorite/:userName', blogController.favorite_blog_get);
 
 module.exports = router;

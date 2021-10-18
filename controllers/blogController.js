@@ -1,7 +1,29 @@
 const Blog = require('../models/Blog');
+const Friend = require('../models/Friend');
 
 module.exports.blog_get = async (req, res) => {
-
+  const userName = req.params.userName;
+  const friendList = [];
+  console.log(userName);
+  const friends = await Friend.find(
+    { recipient: userName, status: 3 }, 
+  );
+  if(friends) {
+    for(var i = 0; i < friends.length; i++) {
+      friendList.push(friends[i].requester);
+    }
+    const friendBlog = await Blog.find(
+      { userName: { $in: friendList } }
+    )
+    if(friendBlog) {
+      res.status(200).json(friendBlog);
+    } else {
+      res.status(404).send('no blog');
+    }    
+  } else {
+    console.log('no friends');
+    res.status(404).send('no friends');
+  }
 };
 
 module.exports.blog_post = async (req, res) => {
@@ -70,7 +92,7 @@ module.exports.myblog_get = async (req, res) => {
 };
 
 module.exports.myblog_delete = async(req, res) => {
-  const postID = req.params.postID
+  const postID = req.params.postID;
   try {
     const blog = await Blog.deleteOne({ _id: postID });
     console.log(blog);
@@ -79,3 +101,56 @@ module.exports.myblog_delete = async(req, res) => {
     res.status(404).send('fail');
   }
 }
+
+module.exports.collect = async(req, res) => {
+  const postID = req.params.postID;
+  console.log(postID, req.body.collect)
+  try {
+    Blog.findOneAndUpdate(
+      { _id: postID },
+      {
+        $set: {
+          collect: req.body.collect,
+        },
+      },
+      { new: true },
+      (err, profile) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).send('fail');
+        }          
+        return res.status(200).send('success');
+      }
+    );
+  } catch(err) {
+    console.log(err);
+  }
+};
+
+module.exports.favorite_blog_get = async (req, res) => {
+  const userName = req.params.userName;
+  const friendList = [];
+  console.log(userName);
+  const friends = await Friend.find(
+    { recipient: userName, status: 3 }, 
+  );
+  if(friends) {
+    for(var i = 0; i < friends.length; i++) {
+      friendList.push(friends[i].requester);
+    }
+    const favoriteBlog = await Blog.find(
+      { 
+        userName: { $in: friendList },
+        collect: 'true'
+      }
+    )
+    if(favoriteBlog) {
+      res.status(200).json(favoriteBlog);
+    } else {
+      res.status(404).send('no favorite blog');
+    }    
+  } else {
+    console.log('no friends');
+    res.status(404).send('no friends');
+  }
+};

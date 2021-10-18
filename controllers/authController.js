@@ -45,7 +45,12 @@ module.exports.signup_post = async (req, res) => {
   console.log(req.body);
   const { email, password, name } = req.body;
   try{
-    const user = await User.create({ email, password, name });
+    const user = await User.create({ 
+      email, 
+      password, 
+      name,
+      headshot: 'headshots/iltbb.png' 
+    });
     res.status(201).json({ user: user._id });
   }catch(err){
     const errors = handelErrors(err);

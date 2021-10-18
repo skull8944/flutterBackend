@@ -1,4 +1,5 @@
 const UserProfile = require("../models/UserProfile");
+const User = require("../models/User");
 
 module.exports.userProfile_get = async (req, res) => {
   try {
@@ -46,6 +47,24 @@ module.exports.userProfile_post = async (req, res) => {
 module.exports.userProile_addimg = async (req, res) => {
   try {
     UserProfile.findOneAndUpdate(
+      { userName: req.params.userName },
+      {
+        $set: {
+          headshot: req.file.path,
+        },
+      },
+      { new: true },
+      (err, profile) => {
+        if (err) 
+          return res.status(500).send(err);
+        const response = {
+          message: "image added successfully updated",
+          data: profile,
+        };
+        return res.status(200).send(response);
+      }
+    );
+    User.findOneAndUpdate(
       { userName: req.params.userName },
       {
         $set: {
@@ -177,7 +196,6 @@ module.exports.suggestions_get = async(req, res) => {
   })
 
   if(userProfile) {
-    console.log(userProfile[0].userName);
     res.status(201).json({
       userProfile
     })

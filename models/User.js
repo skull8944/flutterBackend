@@ -22,8 +22,10 @@ const userSchema = new mongoose.Schema({
     unique: true,
     maxLength: [8, '請輸入長度小於6的名字']
   },
-  friends: [{ type: Schema.Types.ObjectId, ref: 'Friends'}],
-  profile: [{ type: Schema.Types.ObjectId, ref: 'UserProfile' }]
+  headshot: {
+    type: String,
+  },
+  friends: [{ type: Schema.Types.ObjectId, ref: 'Friend'}]
 });
 
 //fire a function after doc saved to db
