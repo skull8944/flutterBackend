@@ -14,7 +14,8 @@ module.exports.blog_get = async (req, res) => {
     }
     const friendBlog = await Blog.find(
       { userName: { $in: friendList } }
-    )
+    ).sort({'created_at': 'desc'})
+
     if(friendBlog) {
       res.status(200).json(friendBlog);
     } else {
@@ -82,7 +83,7 @@ module.exports.myblog_get = async (req, res) => {
   const userName = req.params.userName;
   console.log(userName);
   try {
-    const blog = await Blog.find({ userName });
+    const blog = await Blog.find({ userName }).sort({'created_at': 'desc'});
     if(blog) {
       res.status(200).json(blog);
     }
