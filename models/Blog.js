@@ -20,6 +20,10 @@ const blogSchema = new mongoose.Schema({
   collect: {
     type: String,
     required: true
+  },
+  runRecordID: {
+    type: String,
+    required: true
   }
 }, {
   timestamps: { createdAt: 'created_at' }

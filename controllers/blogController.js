@@ -28,20 +28,22 @@ module.exports.blog_get = async (req, res) => {
 };
 
 module.exports.blog_post = async (req, res) => {
-  const { userName, distance, time } = req.body;
+  const { userName, distance, time, runRecordID } = req.body;
   try {
     const blog = await Blog.create({
       userName,
       distance,
       time,
-      collect: 'false'
+      collect: 'false',
+      runRecordID
     });
     res.status(201).json({
       postID: blog._id,
       userName: blog.userName,
       distance: blog.distance,
       time: blog.time,
-      collect: blog.collect
+      collect: blog.collect,
+      runRecordID: blog.runRecordID
     });
   } catch(err) {
     res.status(404).send(err);

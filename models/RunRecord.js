@@ -5,7 +5,8 @@ const runRecordSchema = new mongoose.Schema({
   userName: String,
   distance: String,
   time: String,
-  calories: String
+  calories: String,
+  marks: Array
 }, {
   timestamps: { createdAt: 'created_at' }
 });
@@ -14,6 +15,6 @@ runRecordSchema.post('save', async function(doc, next){
   next();
 });
 
-const RunRecord = mongoose.model('run_record', friendSchema);
+const RunRecord = mongoose.model('run_record', runRecordSchema);
 
 module.exports = RunRecord;
