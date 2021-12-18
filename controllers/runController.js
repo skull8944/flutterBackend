@@ -17,11 +17,14 @@ module.exports.run_get = async (req, res) =>  {
 };
 
 module.exports.run_post = async (req, res) => {
+  console.log('post');
   const { userName, distance, time, calories, marks } = req.body;
+  console.log(userName, distance, time, calories, marks)
   try {
     const runRecord = await RunRecord.create({
       userName, distance, time, calories, marks
     });
+    console.log(runRecord)
     if(runRecord) {
       res.status(201).send('success');
     } else {
@@ -39,6 +42,7 @@ module.exports.run_delete = async(req, res) => {
   try {
     const runRecord = await RunRecord.deleteOne({ _id: runRecordID });
     if(runRecord) {
+      console.log('deleted record')
       res.status(201).send('success');
     } else {
       res.status(404).send('fail');
@@ -50,6 +54,7 @@ module.exports.run_delete = async(req, res) => {
 
 module.exports.marks_get = async(req, res) => {
   const runRecordID = req.params.runRecordID;
+  console.log(runRecordID)
   try {
     const runRecord = await RunRecord.findOne({ _id: runRecordID });
     if(runRecord) {

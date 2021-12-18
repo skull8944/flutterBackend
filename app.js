@@ -4,6 +4,7 @@ const authRoutes = require('./routes/authRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const covidRoutes = require('./routes/covidRoutes');
 const userProfileRoutes = require('./routes/userProfileRoutes');
+const runRoutes = require('./routes/runRoutes');
 const friendRoutes = require('./routes/friendRoutes');
 const schedule = require('node-schedule');
 const covidController = require('./controllers/covidController');
@@ -39,3 +40,4 @@ app.use(blogRoutes);
 app.use(covidRoutes);
 app.use(userProfileRoutes);
 app.use(friendRoutes);
+app.use(runRoutes)

@@ -11,9 +11,11 @@ const runRecordSchema = new mongoose.Schema({
   timestamps: { createdAt: 'created_at' }
 });
 
-runRecordSchema.post('save', async function(doc, next){
+runRecordSchema.post('save', function(doc, next){
+  console.log('new run record saved');
   next();
 });
+
 
 const RunRecord = mongoose.model('run_record', runRecordSchema);
 
