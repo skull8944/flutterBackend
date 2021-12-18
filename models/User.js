@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
   headshot: {
     type: String,
   },
-  friends: [{ type: Schema.Types.ObjectId, ref: 'Friend'}]
+  friends: [{ type: String, ref: 'Friend'}]
 });
 
 //fire a function after doc saved to db
