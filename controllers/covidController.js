@@ -39,9 +39,10 @@ module.exports.getCovidInfo = async () => {
   });  
 
   try{
-    await CovidInfo.create({
+    const covidInfo = await CovidInfo.create({
       date, totalConfirmed, localConfirmed, newTotalConfirmed, newLocalConfirmed, totalDeath, newDeath, injection, newInjection
-    })
+    });
+    console.log(covidInfo)
   } catch(err) {
     console.log(err);
   }

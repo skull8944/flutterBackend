@@ -5,6 +5,7 @@ const router = Router();
 
 router.get('/run/:userName', runController.run_get);
 router.post('/run', runController.run_post);
-router.delete('run', runController.run_delete);
+router.delete('run/runRecordID', runController.run_delete);
+router.get('/run/marks/:userName', runController.marks_get);
 
 module.exports = router;

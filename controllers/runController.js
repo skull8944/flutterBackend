@@ -35,12 +35,30 @@ module.exports.run_post = async (req, res) => {
 };
 
 module.exports.run_delete = async(req, res) => {
-  const recordID = req.params.recordID;
+  const runRecordID = req.params.runRecordID;
   try {
-    const record = await RunRecord.deleteOne({ _id: postID });
-    console.log(record);
-    res.status(201).send('success');
+    const runRecord = await RunRecord.deleteOne({ _id: runRecordID });
+    if(runRecord) {
+      res.status(201).send('success');
+    } else {
+      res.status(404).send('fail');
+    }
   } catch(err) {
+    res.status(404).send('fail');
+  }
+}
+
+module.exports.marks_get = async(req, res) => {
+  const runRecordID = req.params.runRecordID;
+  try {
+    const runRecord = await RunRecord.findOne({ _id: runRecordID });
+    if(runRecord) {
+      res.status(200).json(runRecord.marks);
+    } else {
+      res.status(404).send('fail');
+    }
+  } catch(err) {
+    console.log(err);
     res.status(404).send('fail');
   }
 }
